@@ -1,0 +1,19 @@
+<mxfile host="app.diagrams.net" modified="2024-03-02T06:21:03.601Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="MiPeV8neLfc34ftbURHi" version="24.0.0" type="device">
+  <diagram name="Page-1" id="r3ij-SZW9z0puGHD71V1">
+    <mxGraphModel dx="1050" dy="557" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dSz6UqDjp-xAasms5R_Y-1" value="&lt;i&gt;&lt;b&gt;Database&lt;/b&gt;&lt;/i&gt;" style="shape=cylinder3;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontStyle=0;fillColor=#bac8d3;strokeColor=#23445d;fillStyle=auto;whiteSpace=wrap;labelBackgroundColor=none;align=center;" vertex="1" parent="1">
+          <mxGeometry x="395" y="360" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dSz6UqDjp-xAasms5R_Y-2" value="SOA Services" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dSz6UqDjp-xAasms5R_Y-3" value="Front end" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="380" y="90" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

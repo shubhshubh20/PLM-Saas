@@ -1,0 +1,5 @@
+1. create system such that if a new class is created, then automatically api's should get created for that specific class type
+
+for eg. Now we have created User class, and I have one api called localhost:8080/user/add Post request and body with User user which will save the User object.
+
+Suppose we identify around 5 basic CRUD apis for a class. Now the aim is to create a system such that if I create a class then automatically all the apis should get configured
