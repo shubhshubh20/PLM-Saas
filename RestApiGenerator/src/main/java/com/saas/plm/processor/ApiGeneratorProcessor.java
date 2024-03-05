@@ -1,5 +1,8 @@
-package com.saas.plm.annotations;
+package com.saas.plm.processor;
 
+import com.saas.plm.annotation.ApiGenerator;
+import com.saas.plm.annotation.Persisted;
+import com.saas.plm.annotation.UniqueKey;
 import com.google.auto.service.AutoService;
 
 import javax.annotation.processing.*;
@@ -9,15 +12,23 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
+import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@SupportedAnnotationTypes("com.saas.plm.annotations.ApiGenerator")
+@AutoService(Processor.class)
+@SupportedAnnotationTypes("com.saas.plm.annotation.ApiGenerator")
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 public class ApiGeneratorProcessor extends AbstractProcessor {
+
+    private static final List<String> EXCEPTION_CLASS_NAMES = new ArrayList<>() {{
+        add("RequestExceptionType2");
+        add("ServiceExceptionType2");
+    }};
 
     private String className;
     private String packageName;
@@ -26,15 +37,48 @@ public class ApiGeneratorProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        Set<? extends Element> apiGeneratedElements = roundEnv.getElementsAnnotatedWith(ApiGenerator.class);
-        for(Element element: apiGeneratedElements){
-//            className = element.getSimpleName().toString();
-//            packageName = processingEnv.getElementUtils().getPackageOf(element).toString();
-//            System.out.println("Printing something");
-//            generateControllerClass(element);
-//            generateRepositoryClass(element);
-//            generateServiceClass(element);
+//        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Processing element: ");
+//        Set<? extends Element> apiGeneratedElements = roundEnv.getElementsAnnotatedWith(ApiGenerator.class);
+//        for(Element element: apiGeneratedElements){
+//            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Processing element: ");
+////            className = element.getSimpleName().toString();
+////            packageName = processingEnv.getElementUtils().getPackageOf(element).toString();
+////            System.out.println("Printing something");
+////            generateControllerClass(element);
+////            generateRepositoryClass(element);
+////            generateServiceClass(element);
 //            generateServiceInterface(element);
+//            generateExceptionClasses();
+
+        boolean isClaimed = false;
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Processing element: ");
+        Set<? extends Element> fileDbGeneratedAnnotatedClasses = roundEnv.getElementsAnnotatedWith(ApiGenerator.class);
+        for (Element element : fileDbGeneratedAnnotatedClasses) {
+            if (element.getKind() == ElementKind.CLASS) {
+                TypeElement classElement = (TypeElement) element;
+
+                List<VariableElement> fields = new ArrayList<>();
+                List<VariableElement> uniqueKeyFields = new ArrayList<>();
+                for (Element enclosedElement : classElement.getEnclosedElements()) {
+                    if (enclosedElement.getKind() == ElementKind.FIELD
+                            && enclosedElement.getAnnotation(UniqueKey.class) != null) {
+                        VariableElement fieldElement = (VariableElement) enclosedElement;
+                        uniqueKeyFields.add(fieldElement);
+                    } else if (enclosedElement.getKind() == ElementKind.FIELD
+                            && enclosedElement.getAnnotation(Persisted.class) != null) {
+                        VariableElement fieldElement = (VariableElement) enclosedElement;
+                        fields.add(fieldElement);
+                    }
+                }
+
+                if (!fields.isEmpty()) {
+                    TypeElement enclosingClass = (TypeElement) fields.stream().findAny().get().getEnclosingElement();
+                    this.packageName = processingEnv.getElementUtils().getPackageOf(enclosingClass).toString();
+                    this.className = enclosingClass.getSimpleName().toString();
+                    generateExceptionClasses();
+//                    generateServiceInterface(element);
+                }
+            }
         }
         return false;
     }
@@ -67,6 +111,35 @@ public class ApiGeneratorProcessor extends AbstractProcessor {
             writer.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
+        }
+    }
+
+    private void generateExceptionClasses() {
+        for (String exceptionClassName : EXCEPTION_CLASS_NAMES) {
+            StringBuilder body = new StringBuilder();
+            body.append("package ").append(this.packageName).append(";\n\n");
+            body.append("public class ").append(this.className).append(exceptionClassName).append(" extends Exception {\n");
+            body.append("   private String message;\n\n");
+            body.append("   public ").append(this.className).append(exceptionClassName).append("(String message) {\n");
+            body.append("       this.message = message;\n");
+            body.append("   }\n\n");
+            body.append("   public String getMessage() {\n");
+            body.append("       return this.message;\n");
+            body.append("   }\n\n");
+            body.append("   public String toString() {\n");
+            body.append("       return this.getMessage();\n");
+            body.append("   }\n");
+            body.append("}\n");
+
+            try {
+                Writer writer = processingEnv.getFiler()
+                        .createSourceFile(this.packageName + "." + this.className + exceptionClassName)
+                        .openWriter();
+                writer.write(body.toString());
+                writer.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 

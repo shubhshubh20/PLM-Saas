@@ -1,7 +1,15 @@
-package com.saas.plm.annotations;
+package com.saas.plm.models;
 
+
+import com.gogettergeeks.annotation.FileDBGenerated;
+import com.gogettergeeks.annotation.Persisted;
+import com.gogettergeeks.annotation.UniqueKey;
+import com.saas.plm.annotation.ApiGenerator;
+
+@FileDBGenerated
 @ApiGenerator
 public class Student {
+
     @Persisted
     private String name;
 
@@ -27,3 +35,4 @@ public class Student {
         this.rollNumber = rollNumber;
     }
 }
+

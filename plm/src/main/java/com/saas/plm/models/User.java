@@ -1,9 +1,10 @@
 package com.saas.plm.models;
 
-import com.saas.plm.annotations.ApiGenerator;
-import com.saas.plm.annotations.FileDBGenerated;
-import com.saas.plm.annotations.Persisted;
-import com.saas.plm.annotations.UniqueKey;
+
+import com.gogettergeeks.annotation.FileDBGenerated;
+import com.gogettergeeks.annotation.Persisted;
+import com.gogettergeeks.annotation.UniqueKey;
+import com.saas.plm.annotation.ApiGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,10 +19,11 @@ import org.antlr.v4.runtime.misc.NotNull;
 @Entity
 @AllArgsConstructor
 @FileDBGenerated
-@ApiGenerator
 public class User {
 
     @Id @Getter @Setter
+    @Persisted
+    @UniqueKey
     private String userId;
 
 }

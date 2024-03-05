@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlmApplication {
 
 	public static void main(String[] args) {
-
+		System.out.println("printing");
 		SpringApplication.run(PlmApplication.class, args);
 	}
 

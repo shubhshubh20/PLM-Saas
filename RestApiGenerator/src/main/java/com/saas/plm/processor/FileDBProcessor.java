@@ -1,22 +1,25 @@
-package com.saas.plm.annotations;
+package com.saas.plm.processor;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedSourceVersion;
+import com.saas.plm.annotation.FileDBGenerated;
+import com.saas.plm.annotation.Persisted;
+import com.saas.plm.annotation.UniqueKey;
+import com.google.auto.service.AutoService;
+
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
-@SupportedAnnotationTypes("com.saas.plm.annotations.FileDBGenerated")
+@AutoService(Processor.class)
+@SupportedAnnotationTypes("com.saas.plm.annotation.FileDBGenerated")
 @SupportedSourceVersion(SourceVersion.RELEASE_17)
 public class FileDBProcessor extends AbstractProcessor {
     private static final List<String> EXCEPTION_CLASS_NAMES = new ArrayList<>() {{
@@ -31,6 +34,7 @@ public class FileDBProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         boolean isClaimed = false;
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Processing element: ");
         Set<? extends Element> fileDbGeneratedAnnotatedClasses = roundEnv.getElementsAnnotatedWith(FileDBGenerated.class);
         for (Element element : fileDbGeneratedAnnotatedClasses) {
             if (element.getKind() == ElementKind.CLASS) {
@@ -54,10 +58,10 @@ public class FileDBProcessor extends AbstractProcessor {
                     TypeElement enclosingClass = (TypeElement) fields.stream().findAny().get().getEnclosingElement();
                     this.packageName = processingEnv.getElementUtils().getPackageOf(enclosingClass).toString();
                     this.className = enclosingClass.getSimpleName().toString();
-                    generateModel(fields, uniqueKeyFields);
+//                    generateModel(fields, uniqueKeyFields);
                     generateExceptionClasses();
                     generateInterface();
-                    generateDao(fields, uniqueKeyFields);
+//                    generateDao(fields, uniqueKeyFields);
                 }
             }
         }
