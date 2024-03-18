@@ -38,9 +38,9 @@ to generate the data-layer and start using it!
 ## Example Usage
 Consider the below Student model class.
 ```
-import annotation.com.saas.plm.FileDBGenerated;
-import annotation.com.saas.plm.Persisted;
-import annotation.com.saas.plm.UniqueKey;
+import annotation.com.saas.restapi.FileDBGenerated;
+import annotation.com.saas.restapi.Persisted;
+import annotation.com.saas.restapi.UniqueKey;
 
 @FileDBGenerated
 public class Student {
