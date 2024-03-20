@@ -1,0 +1,25 @@
+.workflow-container {
+    display: flex;
+  }
+  
+  .tasks-area {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .tasks-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 columns with equal width */
+    gap: 20px; /* Gap between grid items */
+  }
+  
+  .tasks-area h2 {
+    margin-bottom: 10px; /* Add some spacing between heading and tasks */
+  }
+  
+  .drop-zone {
+    flex: 2;
+    min-height: 300px;
+    border: 1px dashed #ccc;
+    padding: 20px;
+  }

@@ -1,0 +1,23 @@
+.module-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(21, 0, 255, 0.1);
+  }
+  
+  .module-card .card-title {
+    color: #343a40;
+  }
+  
+  .module-card .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .module-card .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  

@@ -4,7 +4,7 @@
     padding: 20px;
     background-color: #f0f0f0;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(213, 32, 32, 0.1);
     text-align: center;
 }
 
@@ -19,3 +19,11 @@ p {
     font-size: 1.2rem;
     line-height: 1.6;
 }
+
+.module-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 3 columns with equal width */
+    gap: 20px; /* Space between modules */
+  }
+  
+  

@@ -21,12 +21,13 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button color="inherit" href='/'>Home</Button>
+          <Button color="inherit" href='/home'>Home</Button>
           <Button color="inherit" href='/about'>About</Button>
+          {/* <Button color="inherit" href='/ai-assistant'>Use AI</Button> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PLM SAAS full stack
           </Typography>
-          <Button color="inherit" href='/login'>Login</Button>
+          {/* <Button color="inherit" href='/login'>Login</Button> */}
           
         </Toolbar>
       </AppBar>

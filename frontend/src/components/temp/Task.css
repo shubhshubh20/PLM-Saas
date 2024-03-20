@@ -1,0 +1,27 @@
+/* Task.css */
+.task {
+    width: 100px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: move;
+    margin-bottom: 10px;
+    overflow: hidden; /* Ensure overflow is hidden */
+  }
+  
+  .task img {
+    width: 80px; /* Adjust image size as needed */
+    height: 80px; /* Adjust image size as needed */
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .task-name {
+    width: 100%; /* Take up full width of task */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis for overflow text */
+  }
+  

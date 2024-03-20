@@ -1,9 +1,10 @@
 import './App.css';
-import ButtonAppBar from './components/Appbar'
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
 import LoginPage from './components/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AILandingPage from './components/AILandingPage';
+import WorkflowPage from './components/temp/WorkflowPage';
 
 function App() {
   return (
@@ -11,11 +12,13 @@ function App() {
     <Router>
       
         <div className="App">
-            <ButtonAppBar/>
+            {/* <ButtonAppBar/> */}
             <Routes>
-              <Route exact path="/" element={<HomePage />}  />
+              <Route exact path="/" element={<LoginPage />}  />
               <Route path="/about" element={<AboutPage />}  />
-              <Route path="/login" element={<LoginPage />}  />
+              <Route path="/home" element={<HomePage />}  />
+              <Route path="/ai-assistant" element={<AILandingPage/>} />
+              <Route path="/workflow" element={<WorkflowPage/>} />
             </Routes>
             {/* Add more routes for other pages */}
         </div>

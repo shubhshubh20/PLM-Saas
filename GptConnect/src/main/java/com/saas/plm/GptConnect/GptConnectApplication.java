@@ -14,23 +14,7 @@ import org.springframework.web.client.RestTemplate;
 public class GptConnectApplication {
 
 	public static <ResponseEntity> void main(String[] args) {
-//		String openaiApiKey = "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";
-//		String openaiApiUrl = "https://api.openai.com/v1/engines";
-//
-//		RestTemplate restTemplate = new RestTemplate();
-//		String authHeader = "Bearer " + openaiApiKey;
-//
-//		// Set headers
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.set("Authorization", authHeader);
-//		headers.set("Content-Type", "application/json");
-//
-//		// Make a GET request to the OpenAI API to fetch available models
-//		HttpEntity<String> request = new HttpEntity<>(headers);
-//		org.springframework.http.ResponseEntity<String> response = restTemplate.exchange(openaiApiUrl, HttpMethod.GET, request, String.class);
-//
-//		// Print response body
-//		System.out.println(response.getBody());
+//		ss
 		SpringApplication.run(GptConnectApplication.class, args);
 	}
 
